@@ -1,0 +1,51 @@
+<div class="container">
+  <h2>სტუდენტის დარეგისტრირება</h2>
+
+  <input type="text" [(ngModel)]="studentFirstName" placeholder="სახელი" />
+  <input type="text" [(ngModel)]="studentLastName" placeholder="გვარი" />
+  <input type="number" [(ngModel)]="studentAge" placeholder="ასაკი" />
+  <input type="text" [(ngModel)]="studentUniversity" placeholder="უნივერსიტეტი" />
+  <input type="checkbox" [(ngModel)]="studentIsExchanging" placeholder="დაფინანსება" />
+  <input type="text" [(ngModel)]="studentCity" placeholder="ქალაქი" />
+  <input type="number" [(ngModel)]="studentAverageScore" placeholder="ქულა" />
+  
+  <button appUserCustom (click)="addStudent()">დამატება</button>
+
+  <h2>მაღალრეიტინგული სტუდენტების სია</h2>
+  <div *ngFor="let student of studentsArray">
+    <p *ngIf="!student.isExchanging && student.averageScore >= 90"
+       [ngClass]="{
+         'blue': student.city !== 'თბილისი',
+         'high-rating': student.averageScore >= 90
+       }">
+      {{ student.firstName }} {{ student.lastName }} - {{ student.age }} -
+      {{ student.university }} - {{ student.averageScore | score }} - {{ student.city }}
+    </p>
+  </div>
+
+  <h2>საშუალორეიტინგული სტუდენტების სია</h2>
+  <div *ngFor="let student of studentsArray">
+    <p *ngIf="!student.isExchanging && student.averageScore >= 60 && student.averageScore < 90"
+       [ngClass]="{
+         'blue': student.city !== 'თბილისი',
+         'medium-rating': student.averageScore >= 60 && student.averageScore < 90
+       }">
+      {{ student.firstName }} {{ student.lastName }} - {{ student.age }} -
+      {{ student.university }} - {{ student.averageScore | score }} - {{ student.city }}
+    </p>
+  </div>
+
+  <h2>დაბალრეიტინგული სტუდენტების სია</h2>
+  <div *ngFor="let student of studentsArray">
+    <p *ngIf="!student.isExchanging && student.averageScore < 60"
+       [ngClass]="{
+         'blue': student.city !== 'თბილისი',
+         'low-rating': student.averageScore < 60
+       }">
+      {{ student.firstName }} {{ student.lastName }} - {{ student.age }} -
+      {{ student.university }} - {{ student.averageScore | score }} - {{ student.city }}
+    </p>
+  </div>
+
+  
+</div>
